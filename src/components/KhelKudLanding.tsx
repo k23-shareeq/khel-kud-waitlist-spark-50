@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Trophy, 
@@ -33,6 +34,7 @@ interface WaitlistFormData {
   email: string;
   city: string;
   areaName: string;
+  accountType: 'player' | 'venue-owner';
 }
 
 const cities = [
@@ -43,11 +45,32 @@ const cities = [
 
 const KhelKudLanding = () => {
   const [formData, setFormData] = useState<WaitlistFormData>({
-    fullName: '', email: '', city: '', areaName: ''
+    fullName: '', email: '', city: '', areaName: '', accountType: 'player'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   const { toast } = useToast();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'features', 'how-it-works', 'waitlist', 'faqs'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleInputChange = (key: keyof WaitlistFormData, value: string) => {
     setFormData(prev => ({ ...prev, [key]: value }));
@@ -137,21 +160,14 @@ const KhelKudLanding = () => {
             Join the waitlist for exclusive early access to the platform that's revolutionizing sports and esports communities
           </p>
           
-          {/* Neon buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          {/* Neon button - centered */}
+          <div className="flex justify-center mb-12">
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 neon-glow"
               onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Join Waitlist
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="border-border text-muted-foreground hover:bg-card px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300"
-            >
-              Learn More
             </Button>
           </div>
         </div>
@@ -160,34 +176,34 @@ const KhelKudLanding = () => {
       <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className="flex items-center space-x-4 bg-card/80 backdrop-blur-md border border-border rounded-2xl px-6 py-3 shadow-lg neon-glow">
           <button 
-            className="p-2 rounded-lg hover:bg-muted transition-all duration-200 group"
+            className={`p-2 rounded-lg transition-all duration-200 group ${activeSection === 'hero' ? 'bg-primary/20' : 'hover:bg-muted'}`}
             onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <Sparkles className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <Sparkles className={`w-5 h-5 transition-colors ${activeSection === 'hero' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}`} />
           </button>
           <button 
-            className="p-2 rounded-lg hover:bg-muted transition-all duration-200 group"
+            className={`p-2 rounded-lg transition-all duration-200 group ${activeSection === 'features' ? 'bg-primary/20' : 'hover:bg-muted'}`}
             onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <Zap className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <Zap className={`w-5 h-5 transition-colors ${activeSection === 'features' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}`} />
           </button>
           <button 
-            className="p-2 rounded-lg hover:bg-muted transition-all duration-200 group"
+            className={`p-2 rounded-lg transition-all duration-200 group ${activeSection === 'how-it-works' ? 'bg-primary/20' : 'hover:bg-muted'}`}
             onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <Target className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <Target className={`w-5 h-5 transition-colors ${activeSection === 'how-it-works' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}`} />
           </button>
           <button 
-            className="p-2 rounded-lg hover:bg-muted transition-all duration-200 group"
+            className={`p-2 rounded-lg transition-all duration-200 group ${activeSection === 'waitlist' ? 'bg-primary/20' : 'hover:bg-muted'}`}
             onClick={() => document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <UserPlus className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <UserPlus className={`w-5 h-5 transition-colors ${activeSection === 'waitlist' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}`} />
           </button>
           <button 
-            className="p-2 rounded-lg hover:bg-muted transition-all duration-200 group"
+            className={`p-2 rounded-lg transition-all duration-200 group ${activeSection === 'faqs' ? 'bg-primary/20' : 'hover:bg-muted'}`}
             onClick={() => document.getElementById('faqs')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <HelpCircle className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+            <HelpCircle className={`w-5 h-5 transition-colors ${activeSection === 'faqs' ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}`} />
           </button>
         </div>
       </div>
@@ -360,12 +376,13 @@ const KhelKudLanding = () => {
               </span>
             </h2>
             <p className="text-xl text-muted-foreground">Be among the first to experience the future of sports and esports</p>
-            <div className="mt-6 p-4 bg-card/50 border border-border backdrop-blur-sm rounded-lg neon-glow">
+            {/* TODO: Maybe add back sports claimed counter in the future */}
+            {/* <div className="mt-6 p-4 bg-card/50 border border-border backdrop-blur-sm rounded-lg neon-glow">
               <p className="text-sm text-muted-foreground">
                 <span className="text-foreground font-bold">3,217 spots claimed</span> | 
                 <span className="text-primary font-bold"> 482 left</span>
               </p>
-            </div>
+            </div> */}
           </div>
 
           {!isSuccess ? (
@@ -429,6 +446,36 @@ const KhelKudLanding = () => {
                       className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:border-primary"
                       placeholder="Enter your area/locality"
                     />
+                  </div>
+
+                  <div className="space-y-4">
+                    <Label className="text-muted-foreground">Account Type</Label>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="player"
+                          checked={formData.accountType === 'player'}
+                          onCheckedChange={(checked) => {
+                            if (checked) handleInputChange('accountType', 'player');
+                          }}
+                        />
+                        <Label htmlFor="player" className="text-sm font-normal text-foreground cursor-pointer">
+                          I want to register as a Player
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="venue-owner"
+                          checked={formData.accountType === 'venue-owner'}
+                          onCheckedChange={(checked) => {
+                            if (checked) handleInputChange('accountType', 'venue-owner');
+                          }}
+                        />
+                        <Label htmlFor="venue-owner" className="text-sm font-normal text-foreground cursor-pointer">
+                          I want to register as a Venue Owner
+                        </Label>
+                      </div>
+                    </div>
                   </div>
 
                   <Button
@@ -548,15 +595,12 @@ const KhelKudLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative py-20 px-4 border-t border-border overflow-hidden">
+      <footer className="relative py-32 px-4 border-t border-border overflow-hidden">
         {/* Black background */}
         <div className="absolute inset-0 bg-dark" />
         
         <div className="relative z-10 container mx-auto text-center">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-6 h-6 rounded gradient-primary flex items-center justify-center neon-glow">
-              <Trophy className="w-4 h-4 text-foreground" />
-            </div>
             <span className="text-lg font-bold text-foreground">
               Khel Kud
             </span>
