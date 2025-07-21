@@ -1,0 +1,273 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Khel Kud - Sports & Esports Design System
+Electric, vibrant, sporty aesthetic with neon accents and gaming energy
+*/
+
+@layer base {
+  :root {
+    /* Core Background & Foreground - Pure Black Base */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+
+    /* Card & Popover Surfaces - Dark Black Surface */
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Pure Neon Green Primary */
+    --primary: 127 100% 50%;
+    --primary-glow: 127 100% 70%;
+    --primary-foreground: 0 0% 3%;
+
+    /* Dark Neon Green Secondary */
+    --secondary: 127 80% 40%;
+    --secondary-glow: 127 100% 60%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Bright Neon Green Accent */
+    --accent: 127 100% 60%;
+    --accent-glow: 127 100% 80%;
+    --accent-foreground: 0 0% 3%;
+
+    /* Black Variants */
+    --navy: 0 0% 8%;
+    --navy-light: 0 0% 12%;
+
+    /* Pure Dark Tones */
+    --dark: 0 0% 5%;
+    --dark-accent: 0 0% 10%;
+
+    /* Muted Elements - Pure Black */
+    --muted: 0 0% 5%;
+    --muted-foreground: 0 0% 70%;
+
+    /* Destructive States */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Borders & Inputs - Black with Neon */
+    --border: 0 0% 10%;
+    --input: 0 0% 5%;
+    --ring: 127 100% 50%;
+
+    /* Black & Neon Green Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(127 100% 50%) 0%, hsl(127 100% 70%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(127 80% 40%) 0%, hsl(127 100% 60%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(127 100% 60%) 0%, hsl(127 100% 80%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 6% / 0.9) 0%, hsl(0 0% 10% / 0.7) 100%);
+    
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 3%) 0%, hsl(0 0% 6%) 25%, hsl(127 100% 50% / 0.3) 75%, hsl(127 100% 70% / 0.2) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 6% / 0.9) 0%, hsl(127 100% 50% / 0.1) 50%, hsl(127 100% 70% / 0.1) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(127 100% 50%) 0%, hsl(127 100% 70%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(127 100% 50%) 0%, hsl(127 100% 70%) 100%);
+    --gradient-flow: linear-gradient(135deg, hsl(127 100% 50% / 0.3) 0%, hsl(0 0% 5%) 50%, hsl(127 100% 70% / 0.2) 100%);
+
+    /* Sports Gradient */
+    --gradient-sports: radial-gradient(ellipse at top, hsl(127 100% 50% / 0.2) 0%, hsl(127 80% 40% / 0.1) 50%, transparent 100%);
+
+    /* Enhanced Neon Green Glow Effects */
+    --shadow-neon: 0 0 40px hsl(127 100% 50% / 0.6), 0 0 100px hsl(127 100% 50% / 0.3), 0 0 200px hsl(127 100% 50% / 0.1);
+    --shadow-success: 0 0 35px hsl(127 100% 50% / 0.5), 0 0 80px hsl(127 100% 50% / 0.2);
+    --shadow-accent: 0 0 45px hsl(127 100% 60% / 0.7), 0 0 120px hsl(127 100% 60% / 0.3);
+    --shadow-secondary: 0 0 30px hsl(127 80% 40% / 0.5), 0 0 90px hsl(127 80% 40% / 0.2);
+    --shadow-subtle: 0 0 25px hsl(0 0% 8% / 0.3);
+
+    /* Smooth Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Black & Neon Green Theme */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 127 100% 50%;
+    --primary-foreground: 0 0% 3%;
+    --secondary: 127 80% 40%;
+    --secondary-foreground: 0 0% 98%;
+    --accent: 127 100% 60%;
+    --accent-foreground: 0 0% 3%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 10%;
+    --input: 0 0% 5%;
+    --ring: 127 100% 50%;
+    --muted: 0 0% 5%;
+    --muted-foreground: 0 0% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Sports & Gaming Animations */
+@layer utilities {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+  }
+  
+  .animate-pulse-neon {
+    animation: pulseNeon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .gradient-hero {
+    background: var(--gradient-hero);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(127 100% 50% / 0.3);
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px);
+  }
+
+  .gradient-sports {
+    background: var(--gradient-sports);
+  }
+  
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+  }
+  
+  .success-glow {
+    box-shadow: var(--shadow-success);
+  }
+  
+  .accent-glow {
+    box-shadow: var(--shadow-accent);
+  }
+
+  .secondary-glow {
+    box-shadow: var(--shadow-secondary);
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px hsl(127 100% 50% / 0.3), 0 0 20px hsl(127 100% 50% / 0.3), 0 0 30px hsl(127 100% 50% / 0.3);
+  }
+  to {
+    box-shadow: 0 0 20px hsl(127 100% 50% / 0.6), 0 0 40px hsl(127 100% 50% / 0.6), 0 0 60px hsl(127 100% 50% / 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes pulseNeon {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
