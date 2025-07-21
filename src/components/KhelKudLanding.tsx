@@ -193,7 +193,7 @@ const KhelKudLanding = () => {
       </div>
       </section>
       {/* Features Section */}
-      <section id="features" className="relative py-20 px-4 overflow-hidden">
+      <section id="features" className="relative py-32 px-4 overflow-hidden">
         {/* Black background with neon green accents */}
         <div className="absolute inset-0 bg-dark" />
         
@@ -212,7 +212,7 @@ const KhelKudLanding = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-foreground">Game-Changing </span>
-              <span className="text-primary animate-glow">
+              <span className="text-primary">
                 Features
               </span>
             </h2>
@@ -259,7 +259,7 @@ const KhelKudLanding = () => {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="relative py-20 px-4 overflow-hidden">
+      <section id="how-it-works" className="relative py-32 px-4 overflow-hidden">
         {/* Black background with neon accents */}
         <div className="absolute inset-0 bg-background" />
         
@@ -278,7 +278,7 @@ const KhelKudLanding = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-foreground">How It </span>
-              <span className="text-primary animate-glow">
+              <span className="text-primary">
                 Works
               </span>
             </h2>
@@ -336,7 +336,7 @@ const KhelKudLanding = () => {
       </section>
 
       {/* Waitlist Section */}
-      <section id="waitlist" className="relative py-20 px-4 overflow-hidden">
+      <section id="waitlist" className="relative py-32 px-4 overflow-hidden">
         {/* Black background with neon accents */}
         <div className="absolute inset-0 bg-dark" />
         
@@ -355,7 +355,7 @@ const KhelKudLanding = () => {
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-foreground">Join the </span>
-              <span className="text-primary animate-glow">
+              <span className="text-primary">
                 Waitlist
               </span>
             </h2>
@@ -469,7 +469,7 @@ const KhelKudLanding = () => {
       </section>
 
       {/* FAQ Section */}
-      <section id="faqs" className="relative py-20 px-4 overflow-hidden">
+      <section id="faqs" className="relative py-32 px-4 overflow-hidden">
         {/* Black background with neon accents */}
         <div className="absolute inset-0 bg-background" />
         
@@ -488,7 +488,7 @@ const KhelKudLanding = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-foreground">Frequently Asked </span>
-              <span className="text-primary animate-glow">
+              <span className="text-primary">
                 Questions
               </span>
             </h2>
@@ -548,7 +548,7 @@ const KhelKudLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative py-12 px-4 border-t border-border overflow-hidden">
+      <footer className="relative py-20 px-4 border-t border-border overflow-hidden">
         {/* Black background */}
         <div className="absolute inset-0 bg-dark" />
         

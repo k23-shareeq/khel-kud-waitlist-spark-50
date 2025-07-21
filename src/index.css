@@ -70,12 +70,12 @@ Electric, vibrant, sporty aesthetic with neon accents and gaming energy
     /* Sports Gradient */
     --gradient-sports: radial-gradient(ellipse at top, hsl(127 100% 50% / 0.2) 0%, hsl(127 80% 40% / 0.1) 50%, transparent 100%);
 
-    /* Enhanced Neon Green Glow Effects */
-    --shadow-neon: 0 0 40px hsl(127 100% 50% / 0.6), 0 0 100px hsl(127 100% 50% / 0.3), 0 0 200px hsl(127 100% 50% / 0.1);
-    --shadow-success: 0 0 35px hsl(127 100% 50% / 0.5), 0 0 80px hsl(127 100% 50% / 0.2);
-    --shadow-accent: 0 0 45px hsl(127 100% 60% / 0.7), 0 0 120px hsl(127 100% 60% / 0.3);
-    --shadow-secondary: 0 0 30px hsl(127 80% 40% / 0.5), 0 0 90px hsl(127 80% 40% / 0.2);
-    --shadow-subtle: 0 0 25px hsl(0 0% 8% / 0.3);
+    /* Enhanced Neon Green Glow Effects - Reduced intensity */
+    --shadow-neon: 0 0 20px hsl(127 100% 50% / 0.3), 0 0 50px hsl(127 100% 50% / 0.15), 0 0 100px hsl(127 100% 50% / 0.05);
+    --shadow-success: 0 0 15px hsl(127 100% 50% / 0.25), 0 0 40px hsl(127 100% 50% / 0.1);
+    --shadow-accent: 0 0 20px hsl(127 100% 60% / 0.35), 0 0 60px hsl(127 100% 60% / 0.15);
+    --shadow-secondary: 0 0 15px hsl(127 80% 40% / 0.25), 0 0 45px hsl(127 80% 40% / 0.1);
+    --shadow-subtle: 0 0 12px hsl(0 0% 8% / 0.15);
 
     /* Smooth Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
