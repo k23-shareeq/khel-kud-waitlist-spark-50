@@ -150,7 +150,7 @@ const KhelKudLanding = () => {
           {/* Main heading with neon green */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <span className="text-foreground">Khel </span>
-            <span className="text-primary animate-glow">
+            <span className="text-primary">
               Kud
             </span>
           </h1>
