@@ -33,7 +33,7 @@ const NotFound = () => {
             Khel Kud
           </span>
         </div>
-        <h1 className="text-7xl md:text-8xl font-bold mb-6 neon-glow text-primary">404</h1>
+        <h1 className="text-7xl md:text-8xl font-bold py-4 mb-4 neon-glow text-primary">404</h1>
         <p className="text-2xl md:text-3xl text-muted-foreground mb-8 font-light">Oops! This page doesn't exist.</p>
         <Button
           asChild

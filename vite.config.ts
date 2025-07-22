@@ -19,5 +19,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base:process.env.VITE_BASE_PATH || "/khel-kud-waitlist-spark-50"
+  // base:process.env.VITE_BASE_PATH || "/khel-kud-waitlist-spark-50"
 }));

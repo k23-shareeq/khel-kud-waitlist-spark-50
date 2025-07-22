@@ -54,6 +54,7 @@ const KhelKudLanding = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const { toast } = useToast();
+  const [formError, setFormError] = useState<string | null>(null);
 
   // Extract cities and areas from areasData
   const cities = useMemo(() => areasData.map((item) => item.city), []);
@@ -115,16 +116,15 @@ const KhelKudLanding = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setFormError(null);
     e.preventDefault();
 
     const error = validateForm();
     if (error) {
-      toast({
-        title: "Validation Error",
-        description: error,
-        variant: "destructive",
-      });
+      setFormError(error);
       return;
+    } else {
+      setFormError(null);
     }
 
     setIsSubmitting(true);
@@ -140,14 +140,15 @@ const KhelKudLanding = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        if(response.status == 409){
+          setFormError("You have already joined the waitlist");
+        }else if(response.status == 429){
+          setFormError("You Attempted too many registrations.");
+        }
+        return;
       }
 
       setIsSuccess(true);
-      toast({
-        title: "You're in! 🎉",
-        description: "We've sent a confirmation SMS 📩",
-      });
       // Clear form fields
       setFormData({
         name: '',
@@ -157,12 +158,9 @@ const KhelKudLanding = () => {
         role: 'player',
       });
       setAreaInput('');
+      setFormError(null);
     } catch (error) {
-      toast({
-        title: "Oops! Something went wrong",
-        description: "Please check your info and try again.",
-        variant: "destructive",
-      });
+      setFormError("Something Went Wrong! Please Try Again Later");
     } finally {
       setIsSubmitting(false);
     }
@@ -435,6 +433,11 @@ const KhelKudLanding = () => {
           {!isSuccess ? (
             <Card className="bg-card/50 border-border backdrop-blur-sm hover:bg-card/70 transition-all duration-300 gradient-card neon-glow">
               <CardContent className="p-8">
+                {formError && (
+                  <div className="mb-6 p-3 rounded-lg border border-red-500 bg-red-950/80 text-red-300 text-center font-semibold shadow neon-glow">
+                    {formError}
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="fullName" className="flex items-center space-x-2 text-muted-foreground">
@@ -538,7 +541,7 @@ const KhelKudLanding = () => {
                           }}
                         />
                         <Label htmlFor="player" className="text-sm font-normal text-foreground cursor-pointer">
-                          I want to register as a Player
+                          I want to join as a Player
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -550,7 +553,7 @@ const KhelKudLanding = () => {
                           }}
                         />
                         <Label htmlFor="venue-owner" className="text-sm font-normal text-foreground cursor-pointer">
-                          I want to register as a Venue Owner
+                          I want to join as a Venue Owner
                         </Label>
                       </div>
                     </div>
