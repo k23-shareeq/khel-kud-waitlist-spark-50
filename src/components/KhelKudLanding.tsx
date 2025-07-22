@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,29 +28,54 @@ import {
   HelpCircle
 } from 'lucide-react';
 import heroImage from '@/assets/hero-sports.jpg';
+import areasDataRaw from '@/data/areas.json';
 
 interface WaitlistFormData {
   fullName: string;
   email: string;
   city: string;
   areaName: string;
-  accountType: 'player' | 'venue-owner';
+  role: 'player' | 'owner';
 }
 
-const cities = [
-  "Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Hyderabad", 
-  "Pune", "Ahmedabad", "Jaipur", "Surat", "Lucknow", "Kanpur", 
-  "Nagpur", "Indore", "Thane", "Bhopal", "Visakhapatnam", "Pimpri-Chinchwad"
-];
+interface AreaData {
+  city: string;
+  areas: string[];
+}
+
+const areasData: AreaData[] = areasDataRaw as AreaData[];
 
 const KhelKudLanding = () => {
   const [formData, setFormData] = useState<WaitlistFormData>({
-    fullName: '', email: '', city: '', areaName: '', accountType: 'player'
+    fullName: '', email: '', city: '', areaName: '', role: 'player'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const { toast } = useToast();
+
+  // Extract cities and areas from areasData
+  const cities = useMemo(() => areasData.map((item) => item.city), []);
+  const [areaInput, setAreaInput] = useState('');
+  const [areaSuggestions, setAreaSuggestions] = useState<string[]>([]);
+
+  // Find areas for the selected city
+  const selectedCityAreas = useMemo(() => {
+    const found = areasData.find((item) => item.city === formData.city);
+    return found ? found.areas : [];
+  }, [formData.city]);
+
+  // Update area suggestions as user types
+  useEffect(() => {
+    if (formData.city && areaInput) {
+      const suggestions = selectedCityAreas.filter((area: string) =>
+        area.toLowerCase().includes(areaInput.toLowerCase())
+      );
+      setAreaSuggestions(suggestions);
+    } else {
+      setAreaSuggestions([]);
+    }
+  }, [areaInput, formData.city, selectedCityAreas]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,6 +107,7 @@ const KhelKudLanding = () => {
     if (!/\S+@\S+\.\S+/.test(formData.email)) return "Please enter a valid email";
     if (!formData.city) return "Please select your city";
     if (!formData.areaName.trim()) return "Area name is required";
+
     return null;
   };
 
@@ -101,15 +127,33 @@ const KhelKudLanding = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Mock success response
+      // Send POST request to backend
+      const response = await fetch('https://waitlist-backend-khel-kud.vercel.app/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
       setIsSuccess(true);
       toast({
         title: "You're in! 🎉",
         description: "We've sent a confirmation SMS 📩",
       });
+      // Clear form fields
+      setFormData({
+        fullName: '',
+        email: '',
+        city: '',
+        areaName: '',
+        role: 'player',
+      });
+      setAreaInput('');
     } catch (error) {
       toast({
         title: "Oops! Something went wrong",
@@ -423,12 +467,16 @@ const KhelKudLanding = () => {
                       <MapPin className="w-4 h-4" />
                       <span>City</span>
                     </Label>
-                    <Select value={formData.city} onValueChange={(value) => handleInputChange('city', value)}>
+                    <Select value={formData.city} onValueChange={(value) => {
+                      handleInputChange('city', value);
+                      setAreaInput('');
+                      setFormData(prev => ({ ...prev, areaName: '' }));
+                    }}>
                       <SelectTrigger className="bg-input border-border text-foreground focus:border-primary">
                         <SelectValue placeholder="Select your city" />
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border">
-                        {cities.map((city) => (
+                        {cities.map((city: string) => (
                           <SelectItem key={city} value={city} className="text-foreground hover:bg-muted">
                             {city}
                           </SelectItem>
@@ -437,26 +485,50 @@ const KhelKudLanding = () => {
                     </Select>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="areaName" className="text-muted-foreground">Area Name</Label>
-                    <Input
-                      id="areaName"
-                      value={formData.areaName}
-                      onChange={(e) => handleInputChange('areaName', e.target.value)}
-                      className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:border-primary"
-                      placeholder="Enter your area/locality"
-                    />
-                  </div>
+                  {/* Area Name field: only show if city is selected */}
+                  {formData.city && (
+                    <div className="space-y-2 relative">
+                      <Label htmlFor="areaName" className="text-muted-foreground">Area Name</Label>
+                      <Input
+                        id="areaName"
+                        value={areaInput}
+                        onChange={(e) => {
+                          setAreaInput(e.target.value);
+                          handleInputChange('areaName', e.target.value);
+                        }}
+                        className="bg-input border-border text-foreground placeholder:text-muted-foreground focus:border-primary"
+                        placeholder="Enter your area/locality"
+                        autoComplete="off"
+                      />
+                      {/* Suggestions dropdown */}
+                      {areaSuggestions.length > 0 && (
+                        <ul className="absolute z-20 bg-card border border-border rounded-md mt-1 w-full max-h-40 overflow-y-auto shadow-lg">
+                          {areaSuggestions.map((area) => (
+                            <li
+                              key={area}
+                              className="px-4 py-2 cursor-pointer hover:bg-muted text-foreground"
+                              onClick={() => {
+                                setAreaInput(area);
+                                handleInputChange('areaName', area);
+                                setAreaSuggestions([]);
+                              }}
+                            >
+                              {area}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
 
                   <div className="space-y-4">
-                    <Label className="text-muted-foreground">Account Type</Label>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-2">
                         <Checkbox 
                           id="player"
-                          checked={formData.accountType === 'player'}
+                          checked={formData.role === 'player'}
                           onCheckedChange={(checked) => {
-                            if (checked) handleInputChange('accountType', 'player');
+                            if (checked) handleInputChange('role', 'player');
                           }}
                         />
                         <Label htmlFor="player" className="text-sm font-normal text-foreground cursor-pointer">
@@ -466,9 +538,9 @@ const KhelKudLanding = () => {
                       <div className="flex items-center space-x-2">
                         <Checkbox 
                           id="venue-owner"
-                          checked={formData.accountType === 'venue-owner'}
+                          checked={formData.role === 'owner'}
                           onCheckedChange={(checked) => {
-                            if (checked) handleInputChange('accountType', 'venue-owner');
+                            if (checked) handleInputChange('role', 'owner');
                           }}
                         />
                         <Label htmlFor="venue-owner" className="text-sm font-normal text-foreground cursor-pointer">
@@ -606,7 +678,7 @@ const KhelKudLanding = () => {
             </span>
           </div>
           <p className="text-muted-foreground">
-            © 2024 Khel Kud. Revolutionizing sports and esports communities.
+            © 2025 Khel-Kud. Revolutionizing sports and esports communities.
           </p>
         </div>
       </footer>
