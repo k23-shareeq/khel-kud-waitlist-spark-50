@@ -304,7 +304,7 @@ const KhelKudLanding = () => {
               <Card key={index} className="bg-card/50 border-border backdrop-blur-sm hover:scale-105 transition-all duration-300 group gradient-card neon-glow">
                 <CardHeader className="text-center">
                   <div className={`w-16 h-16 mx-auto mb-4 rounded-full ${feature.gradient} flex items-center justify-center neon-glow`}>
-                    <feature.icon className="w-8 h-8 text-foreground" />
+                    <feature.icon className="w-8 h-8 text-green-700 dark:text-green-400" />
                   </div>
                   <CardTitle className="text-xl text-foreground">{feature.title}</CardTitle>
                 </CardHeader>
@@ -380,7 +380,7 @@ const KhelKudLanding = () => {
               <Card key={index} className="bg-card/50 border-border backdrop-blur-sm hover:scale-105 transition-all duration-300 group text-center gradient-card neon-glow">
                 <CardHeader>
                   <div className={`w-16 h-16 mx-auto mb-4 rounded-full ${item.gradient} flex items-center justify-center neon-glow`}>
-                    <item.icon className="w-8 h-8 text-foreground" />
+                    <item.icon className="w-8 h-8 text-green-700 dark:text-green-400" />
                   </div>
                   <div className="text-sm font-bold text-primary mb-2">Step {item.step}</div>
                   <CardTitle className="text-xl text-foreground">{item.title}</CardTitle>
@@ -507,6 +507,9 @@ const KhelKudLanding = () => {
                         placeholder="Enter your area/locality"
                         autoComplete="off"
                       />
+                      <div className="text-xs text-muted-foreground mt-1">
+                        Choose a nearby area from suggestions if listed, or type yours manually
+                      </div>
                       {/* Suggestions dropdown */}
                       {areaSuggestions.length > 0 && !selectedCityAreas.includes(areaInput) && (
                         <ul className="absolute z-20 bg-card border border-border rounded-md mt-1 w-full max-h-40 overflow-y-auto shadow-lg">
@@ -670,7 +673,7 @@ const KhelKudLanding = () => {
 
                 <AccordionItem value="item-5" className="border-border">
                   <AccordionTrigger className="text-left hover:text-primary hover:no-underline transition-colors text-foreground">
-                    We're starting in select cities in Pakistan and expanding rapidly.
+                  Where is Khel Kud available right now?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
                     We're starting in select cities in Pakistan and expanding rapidly.
